@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Algebra.WebShop2025.App.Data;
 
-public class ApplicationDbContext : IdentityDbContext
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
     #region Domain entities
 
