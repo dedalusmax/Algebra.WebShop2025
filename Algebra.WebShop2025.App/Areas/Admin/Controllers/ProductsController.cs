@@ -52,6 +52,9 @@ public class ProductsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("Id,Name,Price,Description")] Product product)
     {
+        ModelState.Remove("Categories");
+        ModelState.Remove("OrderItems");
+
         if (ModelState.IsValid)
         {
             _context.Add(product);
@@ -88,6 +91,9 @@ public class ProductsController : Controller
         {
             return NotFound();
         }
+
+        ModelState.Remove("Categories");
+        ModelState.Remove("OrderItems");
 
         if (ModelState.IsValid)
         {

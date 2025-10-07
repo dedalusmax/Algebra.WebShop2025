@@ -52,6 +52,8 @@ public class CategoriesController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("Id,Name")] Category category)
     {
+        ModelState.Remove("Products");
+
         if (ModelState.IsValid)
         {
             _context.Add(category);
@@ -88,6 +90,8 @@ public class CategoriesController : Controller
         {
             return NotFound();
         }
+
+        ModelState.Remove("Products");
 
         if (ModelState.IsValid)
         {
