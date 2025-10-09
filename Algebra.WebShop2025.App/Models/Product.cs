@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Algebra.WebShop2025.App.Models;
@@ -22,4 +23,7 @@ public class Product
 
     [ForeignKey("ProductId")]
     public virtual ICollection<OrderItem> OrderItems { get; set; }
+
+    [NotMapped, DisplayName("Categories")]
+    public string CategoriesDisplay => Categories != null ? string.Join(",", Categories.Select(x => x.Category.Name)) : "No categories";
 }
