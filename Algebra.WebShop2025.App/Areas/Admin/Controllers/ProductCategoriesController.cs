@@ -144,7 +144,7 @@ public class ProductCategoriesController : Controller
                 }
             }
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { productId = productCategory.ProductId });
         }
 
         ViewData["Categories"] = new SelectList(_context.Categories, "Id", "Name", productCategory.CategoryId);
@@ -179,7 +179,7 @@ public class ProductCategoriesController : Controller
     // POST: Admin/ProductCategories/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteConfirmed(int id)
+    public async Task<IActionResult> DeleteConfirmed(int id, int productId)
     {
         var productCategory = await _context.ProductCategories.FindAsync(id);
         if (productCategory != null)
@@ -188,7 +188,7 @@ public class ProductCategoriesController : Controller
         }
 
         await _context.SaveChangesAsync();
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction(nameof(Index), new { productId });
     }
 
     private bool ProductCategoryExists(int id)
