@@ -1,11 +1,13 @@
 ﻿using Algebra.WebShop2025.App.Data;
 using Algebra.WebShop2025.App.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Algebra.WebShop2025.App.Areas.Admin.Controllers;
 
 [Area("Admin")]
+[Authorize(Roles = "Admin")]
 public class ProductsController : Controller
 {
     private readonly ApplicationDbContext _context;
@@ -16,6 +18,7 @@ public class ProductsController : Controller
     }
 
     // GET: Admin/Products
+    //[AllowAnonymous]
     public async Task<IActionResult> Index()
     {
         //return View(await _context.Products.ToListAsync());
@@ -72,6 +75,7 @@ public class ProductsController : Controller
     }
 
     // GET: Admin/Products/Edit/5
+    //[Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(int? id)
     {
         if (id == null)

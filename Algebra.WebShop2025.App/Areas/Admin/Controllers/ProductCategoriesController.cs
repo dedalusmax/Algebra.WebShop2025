@@ -1,5 +1,6 @@
 ﻿using Algebra.WebShop2025.App.Data;
 using Algebra.WebShop2025.App.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Algebra.WebShop2025.App.Areas.Admin.Controllers;
 
 [Area("Admin")]
+[Authorize]
 public class ProductCategoriesController : Controller
 {
     private readonly ApplicationDbContext _context;

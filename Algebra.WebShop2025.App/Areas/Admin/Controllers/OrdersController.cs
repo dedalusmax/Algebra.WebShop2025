@@ -1,11 +1,13 @@
 ﻿using Algebra.WebShop2025.App.Data;
 using Algebra.WebShop2025.App.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Algebra.WebShop2025.App.Areas.Admin.Controllers;
 
 [Area("Admin")]
+[Authorize]
 public class OrdersController : Controller
 {
     private readonly ApplicationDbContext _context;
