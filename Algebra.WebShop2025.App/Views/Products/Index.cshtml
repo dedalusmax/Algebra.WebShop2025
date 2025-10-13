@@ -8,10 +8,20 @@
 
 <div class="row mb-5">
     <div class="col-2">
-
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Filter by category
+            </button>
+            <ul class="dropdown-menu">
+                @foreach (var category in ViewBag.Categories)
+                {
+                    <li><a class="dropdown-item" asp-action="Index" asp-route-categoryId="@category.Value">@category.Text</a></li>
+                }
+            </ul>
+        </div>
     </div>
     <div class="col-2">
-        <a class="btn btn-warning">Reset filter</a>
+        <a asp-action="Index" class="btn btn-warning">Reset filter</a>
     </div>
 </div>
 

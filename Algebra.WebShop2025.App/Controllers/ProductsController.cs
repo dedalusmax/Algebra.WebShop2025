@@ -1,14 +1,30 @@
 ﻿using Algebra.WebShop2025.App.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Algebra.WebShop2025.App.Controllers;
 
 public class ProductsController(ApplicationDbContext context) : Controller
 {
-    public IActionResult Index()
+    public IActionResult Index(int? categoryId)
     {
-        var products = context.Products.ToList();
+        ViewData["Categories"] = new SelectList(context.Categories, "Id", "Name");
 
-        return View(products);
+        if (categoryId != null)
+        {
+            var products = (
+                from p in context.Products
+                join pc in context.ProductCategories on p.Id equals pc.ProductId
+                where pc.CategoryId == categoryId
+                select p
+            ).ToList();
+
+            return View(products);
+        }
+        else
+        {
+            var products = context.Products.ToList();
+            return View(products);
+        }
     }
 }
