@@ -22,6 +22,8 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => {
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddScoped<DataSeeder>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -56,5 +58,13 @@ app.MapControllerRoute(
 
 app.MapRazorPages()
    .WithStaticAssets();
+
+//using var scope = app.Services.CreateScope();
+//var dataSeeder = scope.ServiceProvider.GetRequiredService<DataSeeder>();
+//dataSeeder.Seed();
+
+//using var scope = app.Services.CreateScope();
+//var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+//dbContext.Database.Migrate();
 
 app.Run();
