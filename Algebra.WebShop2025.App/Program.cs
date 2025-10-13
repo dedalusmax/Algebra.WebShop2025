@@ -20,6 +20,15 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => {
 .AddRoles<IdentityRole>()
 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("RequireAdminWithCredit", policy => policy
+        .RequireAuthenticatedUser()
+        .RequireRole("Admin")
+    ///
+    );
+});
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<DataSeeder>();

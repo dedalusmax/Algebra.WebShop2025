@@ -75,7 +75,7 @@ public class ProductsController : Controller
     }
 
     // GET: Admin/Products/Edit/5
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Policy = "RequireAdminWithCredit")]
     public async Task<IActionResult> Edit(int? id)
     {
         if (id == null)
