@@ -22,6 +22,8 @@ public static class WebApplicationExtensions
         app.UseAuthentication();
         app.UseAuthorization();
 
+        app.UseSession();
+
         app.MapStaticAssets();
 
         app.MapControllerRoute(
