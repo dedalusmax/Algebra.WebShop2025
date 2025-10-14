@@ -1,0 +1,14 @@
+﻿@model Cart
+
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+@if (Model.Items.Count == 0)
+{
+    <div class="text-center">
+        <h1 class="display-4">Your cart is empty!</h1>
+        <hr />
+        <a asp-controller="Products" asp-action="Index">Continue shopping</a>
+    </div>    
+}
