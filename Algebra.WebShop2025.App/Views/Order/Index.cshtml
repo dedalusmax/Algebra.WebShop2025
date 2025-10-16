@@ -1,0 +1,118 @@
+﻿@model Order
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<div class="text-center mb-3">
+    <h1 class="display-4">Place your order</h1>
+</div>
+<hr />
+<div class="container">
+    <div class="row mt-3">
+        <div class="col">
+            <div class="text-center">
+                <h3>Cart items</h3>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.Cart.Items)
+                    {
+                        <tr>
+                            <td>
+                                <form method="POST" asp-action="RemoveFromCart">
+                                    <input type="hidden" name="productId" value="@item.Product.Id" />
+                                    <input type="submit" class="btn btn-sm btn-danger" value="Remove" />
+                                </form>
+                            </td>
+                            <td>
+                                @item.Product.Name
+                            </td>
+                            <td>
+                                @item.Product.Price.ToString("0.00") €
+                            </td>
+                            <td>
+                                @item.Quantity
+                            </td>
+                            <td>
+                                @item.Total.ToString("0.00") €
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><b>Total price:</b></td>
+                        <td>
+                            <b>@ViewBag.Cart.GrandTotal.ToString("0.00") €</b>
+                        </td>
+                    </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col">
+            <div class="text-center">
+                <h3>Personal information</h3>
+            </div>
+            <form asp-action="PlaceOrder" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col form-group">
+                        <label asp-for="CustomerFirstName" class="control-label"></label>
+                        <input asp-for="CustomerFirstName" class="form-control" />
+                        <span asp-validation-for="CustomerFirstName" class="text-danger"></span>
+                    </div>
+                    <div class="col form-group">
+                        <label asp-for="CustomerLastName" class="control-label"></label>
+                        <input asp-for="CustomerLastName" class="form-control" />
+                        <span asp-validation-for="CustomerLastName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col form-group">
+                        <label asp-for="CustomerEmailAddress" class="control-label"></label>
+                        <input asp-for="CustomerEmailAddress" class="form-control" />
+                        <span asp-validation-for="CustomerEmailAddress" class="text-danger"></span>
+                    </div>
+                    <div class="col form-group">
+                        <label asp-for="CustomerPhoneNumber" class="control-label"></label>
+                        <input asp-for="CustomerPhoneNumber" class="form-control" />
+                        <span asp-validation-for="CustomerPhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label asp-for="CustomerAddress" class="control-label"></label>
+                        <input asp-for="CustomerAddress" class="form-control" />
+                        <span asp-validation-for="CustomerAddress" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <a class="btn btn-outline-danger float-start">Cancel order</a>
+                        <input type="submit" class="btn btn-primary float-end" value="Place order" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
