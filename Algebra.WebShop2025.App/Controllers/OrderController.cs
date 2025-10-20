@@ -75,4 +75,20 @@ public class OrderController(ApplicationDbContext context) : Controller
 
         return View("Error.cshtml");
     }
+
+    [HttpPost]
+    public IActionResult RemoveFromCart(int productId)
+    {
+        var cart = HttpContext.Session.GetCart();
+
+        if (cart.Items.Any(x => x.Product.Id == productId))
+        {
+            var item = cart.Items.Single(x => x.Product.Id == productId);
+            cart.Items.Remove(item);
+        }
+
+        HttpContext.Session.SetCart(cart);
+
+        return RedirectToAction(nameof(Index));
+    }
 }

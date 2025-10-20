@@ -41,7 +41,7 @@ else
                         {
                             <tr>
                                 <td>
-                                    <form method="POST" asp-controller="Cart" asp-action="RemoveFromCart">
+                                    <form method="POST" asp-action="RemoveFromCart">
                                         <input type="hidden" name="productId" value="@item.Product.Id" />
                                         <input type="submit" class="btn btn-sm btn-danger" value="Remove" />
                                     </form>
