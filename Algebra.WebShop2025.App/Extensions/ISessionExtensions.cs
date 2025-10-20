@@ -18,4 +18,10 @@ public static class ISessionExtensions
         var sessionData = session.GetString(CART_SESSION_KEY);
         return string.IsNullOrEmpty(sessionData) ? new Cart() : JsonConvert.DeserializeObject<Cart>(sessionData)!;
     }
+
+    public static void ClearCart(this ISession session)
+    {
+        session.Remove(CART_SESSION_KEY);
+        //session.SetString(CART_SESSION_KEY, string.Empty);
+    }
 }
