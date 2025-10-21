@@ -6,11 +6,20 @@
 
 @if (ViewBag.Success == true)
 {
+@*     <div class="alert alert-danger" role="alert">
+        An error occurred while placing the order. Please try again later.
+    </div> *@
+
     <div class="alert alert-success" role="alert">
         Order has been placed successfully!
     </div>
+}
 
+@if (ViewBag.Cart.Items.Count == 0)
+{
     <div class="text-center">
+        <h1 class="display-4">Your cart is empty!</h1>
+        <hr />
         <a asp-controller="Products" asp-action="Index">Continue shopping</a>
     </div>
 }

@@ -10,6 +10,7 @@ public class Order
     public int Id { get; set; }
 
     [Required]
+    [DisplayName("Grand total")]
     [Column(TypeName = "decimal(18,2)")]
     public decimal Total { get; set; }
 
@@ -17,6 +18,7 @@ public class Order
     public virtual ICollection<OrderItem> Items { get; set; }
 
     [Required]
+    [DisplayName("Created on"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
     public DateTime DateTimeCreated { get; set; }
 
     [Required(ErrorMessage = "Customer's first name is required.")]
@@ -43,4 +45,9 @@ public class Order
     [StringLength(250)]
     [DisplayName("Customer's address")]
     public string CustomerAddress { get; set; }
+
+    [Required]
+    public string UserId { get; set; }
+
+    public virtual ApplicationUser User { get; set; }
 }
