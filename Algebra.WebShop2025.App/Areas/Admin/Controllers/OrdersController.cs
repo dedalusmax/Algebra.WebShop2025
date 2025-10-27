@@ -32,11 +32,29 @@ public class OrdersController : Controller
         }
 
         var order = await _context.Orders
+            .Include(x => x.User)
             .FirstOrDefaultAsync(m => m.Id == id);
+
         if (order == null)
         {
             return NotFound();
         }
+
+        order.Items = (
+            from items in _context.OrderItems
+            join products in _context.Products on items.ProductId equals products.Id
+            where items.OrderId == id
+            select new OrderItem
+            {
+                Id = items.Id,
+                OrderId = items.OrderId,
+                ProductId = items.ProductId,
+                Quantity = items.Quantity,
+                Price = items.Price,
+                Total = items.Total,
+                ProductName = products.Name
+            }
+            ).ToList();
 
         return View(order);
     }
