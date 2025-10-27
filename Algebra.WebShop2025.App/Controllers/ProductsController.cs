@@ -1,4 +1,6 @@
 ﻿using Algebra.WebShop2025.App.Data;
+using Algebra.WebShop2025.App.Extensions;
+using Algebra.WebShop2025.App.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -9,6 +11,9 @@ public class ProductsController(ApplicationDbContext context) : Controller
     public IActionResult Index(int? categoryId)
     {
         ViewData["Categories"] = new SelectList(context.Categories, "Id", "Name");
+
+        var cart = HttpContext.Session.GetCart();
+        ViewData["CartCount"] = cart?.Items?.Count;
 
         if (categoryId != null)
         {

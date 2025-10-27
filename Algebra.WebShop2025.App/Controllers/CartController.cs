@@ -14,6 +14,8 @@ public class CartController(ApplicationDbContext context) : Controller
     {
         var cart = HttpContext.Session.GetCart();
 
+        ViewData["CartCount"] = cart?.Items?.Count;
+
         return View(cart);
     }
 

@@ -5,6 +5,13 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Cart</a>
+        <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">
+            <i class="bi bi-cart"></i>
+            Cart
+            @if (ViewBag.CartCount != null && ViewBag.CartCount > 0)
+            {
+                <span class="badge text-bg-secondary">@ViewBag.CartCount</span>
+            }           
+        </a>
     </li>
 }
