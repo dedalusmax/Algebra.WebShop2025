@@ -62,6 +62,8 @@ public class OrdersController : Controller
             }
             ).ToList();
 
+        ViewData["ShowActions"] = false;
+
         return View(order);
     }
 

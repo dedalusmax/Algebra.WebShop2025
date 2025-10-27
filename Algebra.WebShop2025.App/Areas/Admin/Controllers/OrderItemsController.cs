@@ -20,7 +20,24 @@ public class OrderItemsController : Controller
     // GET: Admin/OrderItems
     public async Task<IActionResult> Index()
     {
-        return View(await _context.OrderItems.ToListAsync());
+        var result = from items in _context.OrderItems
+                     join products in _context.Products on items.ProductId equals products.Id
+                     select new OrderItem
+                     {
+                         Id = items.Id,
+                         OrderId = items.OrderId,
+                         ProductId = items.ProductId,
+                         Quantity = items.Quantity,
+                         Price = items.Price,
+                         Total = items.Total,
+                         ProductName = products.Name
+                     };
+
+        ViewData["ShowActions"] = true;
+
+        return View(await result.ToListAsync());
+        //return View(result);
+        //return View(await _context.OrderItems.ToListAsync());
     }
 
     // GET: Admin/OrderItems/Details/5
