@@ -31,6 +31,12 @@ public class OrdersController : Controller
             return NotFound();
         }
 
+        //var order = from orders in _context.Orders
+        //            join user in _context.Users on orders.UserId equals user.Id
+        //            join items in _context.OrderItems on orders.Id equals items.OrderId
+        //            join products in _context.Products on items.ProductId equals products.Id
+        //            where orders.Id == id;
+
         var order = await _context.Orders
             .Include(x => x.User)
             .FirstOrDefaultAsync(m => m.Id == id);

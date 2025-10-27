@@ -9,12 +9,70 @@
 <div>
     <h4>Order</h4>
     <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.CustomerFirstName)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.CustomerLastName)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.CustomerEmailAddress)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.CustomerPhoneNumber)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.CustomerAddress)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.CustomerFirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.CustomerLastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.CustomerEmailAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.CustomerPhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.CustomerAddress)
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <dl class="row">
+        <dt class="col-sm-2">
+            Ime i prezime kupca
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User.FirstName) @Html.DisplayFor(model => model.User.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.User.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateTimeCreated)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateTimeCreated)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Total)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Total)
+            @Html.DisplayFor(model => model.Total) €
         </dd>
     </dl>
 </div>
