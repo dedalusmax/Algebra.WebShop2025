@@ -1,4 +1,5 @@
-﻿using Algebra.WebShop2025.App.Data;
+﻿using Algebra.WebShop2025.App.Areas.Admin.Models;
+using Algebra.WebShop2025.App.Data;
 using Algebra.WebShop2025.App.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -46,7 +47,17 @@ public class ProductsController : Controller
             return NotFound();
         }
 
-        return View(product);
+        var viewModel = new ProductViewModel
+        {
+            Id = product.Id,
+            Name = product.Name,
+            Price = product.Price,
+            Description = product.Description,
+            FileName = product.FileName,
+            FileContentBase64 = product.FileContent != null ? Convert.ToBase64String(product.FileContent) : null
+        };
+
+        return View(viewModel);
     }
 
     // GET: Admin/Products/Create

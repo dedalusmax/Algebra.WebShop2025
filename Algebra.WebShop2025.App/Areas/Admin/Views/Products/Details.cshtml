@@ -1,4 +1,6 @@
-﻿@model Product
+﻿@using Algebra.WebShop2025.App.Areas.Admin.Models
+
+@model ProductViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -29,6 +31,14 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
     </dl>
+    @if (string.IsNullOrEmpty(Model.FileContentBase64))
+    {
+        <p>No image available.</p>
+    }
+    else
+    {
+        <img style="max-width: 400px" src="data:image;base64,@Model.FileContentBase64" alt="@Model.FileName" />
+    }
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
