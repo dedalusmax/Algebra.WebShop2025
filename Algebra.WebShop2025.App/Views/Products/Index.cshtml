@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Product>
+﻿@using Algebra.WebShop2025.App.Areas.Admin.Models
+
+@model IEnumerable<ProductViewModel>
 
 @{
     ViewData["Title"] = "Product list";
@@ -30,6 +32,10 @@
     {
         <div class="col-sm-4">
             <div class="card">
+                @if (!string.IsNullOrEmpty(@item.FileContentBase64))
+                {
+                    <img class="card-img-top col-md-2" style="max-width: 200px; text-align: center" src="data:image;base64,@item.FileContentBase64" alt="@item.FileName" />
+                }
                 <div class="card-body">
                     <h5 class="card-title">@item.Name</h5>
                     <p class="card-text">@item.Description</p>
