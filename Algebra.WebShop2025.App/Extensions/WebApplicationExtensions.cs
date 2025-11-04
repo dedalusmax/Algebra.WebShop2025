@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Localization;
+﻿using Algebra.WebShop2025.App.Data;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 
 namespace Algebra.WebShop2025.App.Extensions;
@@ -57,9 +59,9 @@ public static class WebApplicationExtensions
         //var dataSeeder = scope.ServiceProvider.GetRequiredService<DataSeeder>();
         //dataSeeder.Seed();
 
-        //using var scope = app.Services.CreateScope();
-        //var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        //dbContext.Database.Migrate();
+        using var scope = app.Services.CreateScope();
+        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        dbContext.Database.Migrate();
 
         return app;
     }
