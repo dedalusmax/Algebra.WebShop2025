@@ -17,6 +17,6 @@ services:
   sqlserver:
     environment:
       - ACCEPT_EULA="Y"
-      - SA_PASSWORD="Your_password123"
+      - SA_PASSWORD="YourStrongPassw0rd"
     ports:
       - "1434:1433"

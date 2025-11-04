@@ -2,12 +2,14 @@
 using Algebra.WebShop2025.App.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Algebra.WebShop2025.App.Extensions;
 
 public static class IServiceCollectionExtensions
 {
-    public static IServiceCollection ConfigureServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection ConfigureServices(this IServiceCollection services, 
+        IConfiguration configuration, IWebHostEnvironment environment)
     {
         services.AddDistributedMemoryCache();
 
@@ -19,11 +21,18 @@ public static class IServiceCollectionExtensions
             options.Cookie.IsEssential = true;
         });
 
-        var connectionString = configuration.GetConnectionString("DefaultConnection")
-            ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+        var inContainer = bool.TryParse(configuration["DOTNET_RUNNING_IN_CONTAINER"], out bool value) && value;
 
-        services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(connectionString));
+        if (environment.IsDevelopment() && !inContainer)
+        {
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+        }
+        else
+        {
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Environment.GetEnvironmentVariable("SQL_CONNECTIONSTRING")));
+        }
 
         services.AddDatabaseDeveloperPageExceptionFilter();
 
